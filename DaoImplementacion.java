@@ -65,4 +65,52 @@ public class DaoImplementacion implements Dao {
             return ps.executeUpdate() > 0;
         }
     }
+
+
+    @Override
+    public List<Pelicula> consultarPeliculasAdultos() throws Exception {
+    
+    //Creamos la lista que pide el usuario
+    List<Pelicula> peliculasAdultos=new ArrayList<>();
+    try {
+       ResultSet rs=stmt.executeQuery(CONSULTAR_PELIS_ADULTOS);
+       while(rs.next()){
+           
+           //Rellenamos pelicula
+            Pelicula p=new Pelicula();
+            p.setId(rs.getInt("id"));             
+            p.setTitulo(rs.getString("titulo"));   
+            p.setDirector(rs.getString("director"));
+            p.setGenero(Genero.valueOf(rs.getString("genero")));
+            p.setAdultos(true);            
+            p.setRuta(rs.getString("ruta"));
+
+            
+            //Añadimos la película a nuestra lista
+            peliculasAdultos.add(p);
+        }
+          
+       return peliculasAdultos; 
+    }catch(SQLException  e){
+        
+        System.out.println(e.getErrorCode());
+        return null ;
+    }
+    } 
+
+     @Override
+    public List<Watchlist> verHistorialWatchlistPelicula(Integer idPelicula) throws Exception {
+        
+        List<Watchlist> todasLasListas = leerWatchlistsDelFichero();
+        List<Watchlist> WatchListDePelicula = new ArrayList<>();
+
+    for (Watchlist w : todasLasListas) {
+
+        if (w.getPeliculasIds().equals(idPelicula)) {
+            WatchListDePelicula.add(w);
+        }
+    }
+        return WatchListDePelicula;
+    }
+}
 }
