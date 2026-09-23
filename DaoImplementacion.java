@@ -1,20 +1,44 @@
 package controlador;
 
-import Conexion.conexionBD;
 import modelo.Pelicula;
 import modelo.Usuario;
 
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+import java.util.Properties;
 public class DaoImplementacion implements Dao {
-    
+    private Connection obtenerConexion() throws SQLException {
+        Properties props = new Properties();
+
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("modelo/ConexionBD.properties")) {
+            if (input == null) {
+              throw new SQLException("No se pudo encontrar el archivo modelo/ConexionBD.properties");
+            }
+            props.load(input);
+        } catch (Exception e) {
+            throw new SQLException("Error al cargar la configuración de la BD", e);
+        }
+        String url = props.getProperty("Conexion");
+        String user = props.getProperty("User");
+        String pass = props.getProperty("Pass");
+        String driver = props.getProperty("Driver");
+
+        try {
+            Class.forName(driver);
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("Driver de MySQL no encontrado: " + driver, e);
+        }
+
+        return DriverManager.getConnection(url, user, pass);
+    }
     @Override
     public boolean registrarPelicula(Pelicula pelicula) throws SQLException {
         String sql = "INSERT INTO pelicula (titulo, director, genero, adultos, ruta) VALUES (?, ?, ?, ?, ?)";
         
-        try (Connection conexion = conexionBD.getConexion();
+        try (Connection conexion = obtenerConexion();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
             
             ps.setString(1, pelicula.getTitulo());
@@ -31,7 +55,7 @@ public class DaoImplementacion implements Dao {
     public boolean registrarUsuario(Usuario usuario) throws SQLException {
         String sql = "INSERT INTO usuario (nombre, email, telefono) VALUES (?, ?, ?)";
         
-        try (Connection conexion = conexionBD.getConexion();
+        try (Connection conexion = obtenerConexion();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
             
             ps.setString(1, usuario.getNombre());
