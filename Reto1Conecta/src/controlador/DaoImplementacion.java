@@ -10,6 +10,16 @@ import modelo.Pelicula;
 import modelo.Usuario;
 import modelo.Watchlist;
 
+import modelo.Pelicula;
+import modelo.Usuario;
+
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Properties;
+
 /**
  * @author Sachin.Baruwal
  */
@@ -51,8 +61,6 @@ public class DaoImplementacion implements Dao {
 
     
     // MÉTODOS AUXILIARES DE BASE DE DATOS
-   
-    
     private void openConnection() throws SQLException {
         con = DriverManager.getConnection(urlBD, userBD, passwordBD);
     }
@@ -66,57 +74,48 @@ public class DaoImplementacion implements Dao {
         }
     }
 
-    private List<Watchlist> leerWatchlistsDelFichero() throws Exception {
-    List<Watchlist> listas = new ArrayList<>();
+    @Override
+    public boolean registrarPelicula(Pelicula pelicula) throws SQLException {
+    String sql = "INSERT INTO Pelicula (titulo, director, genero, adultos, ruta) " + "VALUES (?, ?, ?, ?, ?)";
 
-    File fichero = new File("watchlists.dat");
+        try {
+            openConnection();
 
-    // Si el fichero no existe, devolvemos una lista vacía
-    if (!fichero.exists()) {
-        return listas;
+            stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, pelicula.getTitulo());
+            stmt.setString(2, pelicula.getDirector());
+            stmt.setString(3, pelicula.getGenero() != null ? pelicula.getGenero().toString(): null);
+            stmt.setBoolean(4, pelicula.isAdultos());
+            stmt.setString(5, pelicula.getRuta());
+
+            return stmt.executeUpdate() > 0;
+
+        } finally {
+            closeConnection();
+        }
+}
+
+    @Override
+    public boolean registrarUsuario(Usuario usuario) throws SQLException {
+        String sql = "INSERT INTO Usuario (nombre, email, telefono) "+ "VALUES (?, ?, ?)";
+
+        try {
+            openConnection();
+
+            stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, usuario.getNombre());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getTelefono());
+
+            return stmt.executeUpdate() > 0;
+
+        } finally {
+            closeConnection();
+        }
     }
-
-    try (ObjectInputStream ois = new ObjectInputStream(
-            new FileInputStream(fichero))) {
-
-        listas = (List<Watchlist>) ois.readObject();
-
-    } catch (EOFException e) {
-        // El fichero está vacío
-        listas = new ArrayList<>();
-    }
-
-    return listas;
-    }
-
-    private void guardarWatchlistsEnFichero(List<Watchlist> listas) throws Exception {
-
-    File fichero = new File("watchlists.dat");
-
-    try (ObjectOutputStream oos = new ObjectOutputStream(
-            new FileOutputStream(fichero))) {
-
-        oos.writeObject(listas);
-    }
-    }
-
     
-    @Override
-    public void registrarPelicula(Pelicula pelicula) throws Exception {
-       
-    }
-
-    @Override
-    public void registrarUsuario(Usuario usuario) throws Exception {
-        
-    }
-
-    @Override
-    public List<Pelicula> consultarPeliculasAdultos() throws Exception {
-        
-        return null ;
-    }
-
     @Override
     public void crearWatchlist(Watchlist watchlist, Integer idUsuario) throws Exception {
         List<Watchlist> todasLasListas = leerWatchlistsDelFichero();
@@ -146,8 +145,47 @@ public class DaoImplementacion implements Dao {
         }
     }
 
-   @Override
-public List<Watchlist> consultarWatchlistUsuario(Integer idUsuario) throws Exception {
+    private List<Watchlist> leerWatchlistsDelFichero() throws Exception {
+    List<Watchlist> listas = new ArrayList<>();
+
+    File fichero = new File("watchlists.dat");
+
+    if (!fichero.exists()) {
+        return listas;
+    }
+
+    try (ObjectInputStream ois = new ObjectInputStream(
+            new FileInputStream(fichero))) {
+
+        listas = (List<Watchlist>) ois.readObject();
+
+    } catch (EOFException e) {
+        listas = new ArrayList<>();
+    }
+
+    return listas;
+    }
+
+    private void guardarWatchlistsEnFichero(List<Watchlist> listas) throws Exception {
+    File fichero = new File("watchlists.dat");
+
+    try (ObjectOutputStream oos = new ObjectOutputStream(
+            new FileOutputStream(fichero))) {
+
+        oos.writeObject(listas);
+    }
+    }
+
+    @Override
+    public List<Pelicula> consultarPeliculasAdultos() throws Exception {
+        
+        return null ;
+    }
+
+    
+
+    @Override
+    public List<Watchlist> consultarWatchlistUsuario(Integer idUsuario) throws Exception {
 
     List<Watchlist> todasLasListas = leerWatchlistsDelFichero();
     List<Watchlist> listasUsuario = new ArrayList<>();

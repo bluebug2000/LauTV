@@ -19,6 +19,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.Arrays;
+
+import modelo.Genero;
 
 import java.io.BufferedReader;
 import java.io.EOFException;
@@ -374,6 +377,23 @@ public class Util {
         } while (error);
         return date;
     }
+    
+    public static Genero leerGenero(String mensaje) {
+    Genero tipoo = null;
+    do {
+        try {
+            System.out.print(mensaje + Arrays.toString(Genero.values()) + ": ");
+            String gene = introducirCadena().trim().toUpperCase();
+            tipoo = Genero.valueOf(gene);
+            return tipoo;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Género no válido, inténtelo de nuevo.");
+        }
+    } while (true);
+    }
+    
+    
+    
     // ----------------------------------------------------
 
     //Devuelve el n�mero de objetos de un fichero

@@ -20,8 +20,7 @@ public class Pelicula {
     public Pelicula() {
     }
 
-    public Pelicula(Integer id, String titulo, String director, Genero genero, boolean Adultos, String ruta) {
-        this.id = id;
+    public Pelicula(String titulo, String director, Genero genero, boolean Adultos, String ruta) {
         this.titulo = titulo;
         this.director = director;
         this.genero = genero;

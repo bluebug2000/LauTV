@@ -9,7 +9,5 @@ package modelo;
  * @author Sachin.Baruwal
  */
 public enum Genero {
-    TERROR,
-    ACCION,
-    COMEDIA
+    TERROR, ACCION, COMEDIA
 }

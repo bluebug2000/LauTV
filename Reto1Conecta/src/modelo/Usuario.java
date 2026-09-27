@@ -10,7 +10,7 @@ package modelo;
  */
 public class Usuario {
 
-    private Integer id;
+    private String id;
     private String nombre;
     private String email;
     private String Telefono;
@@ -18,19 +18,18 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nombre, String email, String Telefono) {
-        this.id = id;
+    public Usuario(String nombre, String email, String Telefono) {
         this.nombre = nombre;
         this.email = email;
         this.Telefono = Telefono;
     }
 
-    // Getters y Setters
-    public Integer getId() {
+     // Getters y Setters
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

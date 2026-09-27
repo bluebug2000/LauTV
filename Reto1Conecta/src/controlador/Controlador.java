@@ -7,6 +7,7 @@ import modelo.Watchlist;
 import modelo.Genero;
 import java.time.LocalDate;
 import java.util.List;
+import java.sql.SQLException;
 
 /**
  * @author Sachin.Baruwal
@@ -21,6 +22,7 @@ public class Controlador {
             opc = menu();
             switch (opc) {
                 case 1:
+                    
                     registrarPelicula();
                     break;
                 case 2:
@@ -52,7 +54,7 @@ public class Controlador {
     }
 
     private static int menu() {
-        System.out.println("\n______MENÚ PLATAFORMA DE STREAMING_____");
+        System.out.println("\n-------MENÚ PLATAFORMA DE STREAMING------");
         System.out.println("1. Registrar una pelicula");
         System.out.println("2. Registrar un usuario");
         System.out.println("3. Crear watchlist");
@@ -63,15 +65,46 @@ public class Controlador {
         System.out.println("8. Salir");
         return Util.leerInt("Seleccione una opción (1-8): ", 1, 8);
     }
-
+    
     private static void registrarPelicula() {
-        
+    String titulo = Util.leerString("Titulo: ");
+    String director = Util.leerString("Director: ");
+    Genero genero = Util.leerGenero("Genero: ");
+    boolean adulto = Util.esBoolean();
+    String ruta = Util.leerString("Ruta: ");
+    
+    Pelicula pelicula = new Pelicula(titulo, director, genero, adulto, ruta);
+    
+    try {
+        if (dao.registrarPelicula(pelicula)) {
+            System.out.println("Pelicula registrada correctamente.");
+        } else {
+            System.out.println("No se pudo registrar la pelicula.");
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al registrar pelicula: " + e.getMessage());
     }
-
+    
+    }
+    
     private static void registrarUsuario() {
-        
-    }
+    String nombre = Util.leerString("Nombre: ");
+    String email = Util.leerString("Email: ");
+    String telefono = Util.leerString("Teléfono: ");
 
+    Usuario usuario = new Usuario(nombre,email,telefono);
+
+    try {
+        if (dao.registrarUsuario(usuario)) {
+            System.out.println("Usuario registrado correctamente.");
+        } else {
+            System.out.println("No se pudo registrar el usuario.");
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al registrar usuario: " + e.getMessage());
+    }
+    }
+    
     private static void crearWatchlist() {
         System.out.println("\n--- CREAR WATCHLIST ---");
         int idWatchlist = Util.leerInt("ID de la nueva Watchlist:");
@@ -129,7 +162,7 @@ public class Controlador {
     } catch (Exception e) {
         System.out.println("Error: " + e.getMessage());
     }
-}
+    }
 
     private static void verHistorialWatchlistPelicula() {
         

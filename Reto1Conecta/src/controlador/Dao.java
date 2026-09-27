@@ -4,6 +4,8 @@ import java.util.List;
 import modelo.Pelicula;
 import modelo.Usuario;
 import modelo.Watchlist;
+import java.sql.SQLException;
+
 
 /**
  * Interfaz que define los métodos de acceso a la Base de Datos. Todos lanzan
@@ -14,10 +16,10 @@ import modelo.Watchlist;
 public interface Dao {
 
     // 1. Registrar una película en la tabla Pelicula
-    public void registrarPelicula(Pelicula pelicula) throws Exception;
+    public boolean registrarPelicula(Pelicula pelicula) throws SQLException;
 
     // 2. Registrar un usuario en la tabla Usuario
-    public void registrarUsuario(Usuario usuario) throws Exception;
+    public boolean registrarUsuario(Usuario usuario) throws SQLException;
 
     // 3. Crear watchlist vinculada a un usuario (tabla WatchList)
     public void crearWatchlist(Watchlist watchlist, Integer idUsuario) throws Exception;
