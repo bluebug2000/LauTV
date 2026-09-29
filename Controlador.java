@@ -119,7 +119,24 @@ public class Controlador {
     }
 
     private static void consultarPeliculasAdultos() {
-        
+        System.out.println("\n--- CONSULTAR PELÍCULAS PARA ADULTOS ---");
+
+    try {
+        List<Pelicula> peliculas = dao.consultarPeliculasAdultos();
+
+        if (peliculas.isEmpty()) {
+            System.out.println("No hay películas para adultos.");
+        } else {
+            System.out.println("Películas para adultos:");
+
+            for (Pelicula p : peliculas) {
+                System.out.println(p);
+            }
+        }
+
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+    }
     }
 
     private static void consultarWatchlistUsuario() {
