@@ -74,7 +74,7 @@ public class Util {
             try {
                 num = Integer.parseInt(introducirCadena());
             } catch (NumberFormatException e) {
-                System.out.println("El valor no es numérico. Intentelo de nuevo: ");
+                System.out.println("El valor no es numerico. Intentelo de nuevo: ");
                 fallo = true;
             }
 
@@ -92,7 +92,7 @@ public class Util {
             try {
                 num = Integer.parseInt(introducirCadena());
             } catch (NumberFormatException e) {
-                System.out.println("El valor no es numérico. Intentelo de nuevo: ");
+                System.out.println("El valor no es numerico. Intentelo de nuevo: ");
                 fallo = true;
             }
             if (num < min || num > max) {
@@ -115,7 +115,7 @@ public class Util {
             try {
                 num = Integer.parseInt(introducirCadena());
             } catch (NumberFormatException e) {
-                System.out.println("El valor no es numérico. Intentelo de nuevo: ");
+                System.out.println("El valor no es numerico. Intentelo de nuevo: ");
                 fallo = true;
             }
 
@@ -134,12 +134,12 @@ public class Util {
                 num = Integer.parseInt(introducirCadena());
 
             } catch (NumberFormatException e) {
-                System.out.println("Valor no num rico. Introduce de nuevo:");
+                System.out.println("Valor no numerico. Introduce de nuevo:");
                 error = true;
                 num = min;
             }
             if (num < min || num > max) {
-                System.out.println("N  fuera de rango, introduce n  entre " + min + " y " + max + ": ");
+                System.out.println("N fuera de rango, introduce n  entre " + min + " y " + max + ": ");
                 error = true;
             }
         } while (error);
@@ -156,7 +156,7 @@ public class Util {
             error = false;
             cadena = introducirCadena();
             if (cadena.length() != 1) {
-                System.out.println("Error. Introduzca un único carácter: ");
+                System.out.println("Error. Introduzca un unico carácter: ");
                 error = true;
             }
 
@@ -174,13 +174,13 @@ public class Util {
             error = false;
             cadena = introducirCadena();
             if (cadena.length() != 1) {
-                System.out.println("Error. Introduzca un único carácter: ");
+                System.out.println("Error. Introduzca un unico carácter: ");
                 error = true;
             } else {
                 letra = cadena.charAt(0);
                 letra = Character.toUpperCase(letra);
                 if (letra != opt1 && letra != opt2) {
-                    System.out.println("Error, la opción es incorrecta");
+                    System.out.println("Error, la opcion es incorrecta");
                     error = true;
                 }
             }
@@ -198,13 +198,13 @@ public class Util {
             error = false;
             cadena = introducirCadena();
             if (cadena.length() != 1) {
-                System.out.println("Error. Introduzca un único carácter: ");
+                System.out.println("Error. Introduzca un unico carácter: ");
                 error = true;
             } else {
                 letra = cadena.charAt(0);
                 letra = Character.toUpperCase(letra);
                 if (letra != opt1 && letra != opt2 && letra != opt3) {
-                    System.out.println("Error, la opción es incorrecta");
+                    System.out.println("Error, la opcion es incorrecta");
                     error = true;
                 }
             }
@@ -225,7 +225,7 @@ public class Util {
             letra = introducirCadena();
 
             if (letra.length() != 1) {
-                System.err.println("Error; introduce solo un carácter:");
+                System.err.println("Error: introduce solo un caracter:");
                 error = true;
             } else {
                 aux = letra.charAt(0);
@@ -236,7 +236,7 @@ public class Util {
                 }
                 if (i == chars.length) {
                     error = true;
-                    System.err.println("Error; la opción introducida no es válida. Inténtalo de nuevo:");
+                    System.err.println("Error: la opcion introducida no es valida. Intentalo de nuevo:");
                 }
             }
         } while (error);
@@ -244,10 +244,10 @@ public class Util {
         return aux;
     }
     // ----------Boolean-------------
-
-    public static boolean esBoolean() {
+    public static boolean esBoolean(String mensaje) {
         String respu;
         do {
+            System.out.println(mensaje);
             respu = introducirCadena().toLowerCase();
         } while (!respu.equals("0") && !respu.equals("1") && !respu.equals("si") && !respu.equals("no")
                 && !respu.equals("s") && !respu.equals("n") && !respu.equals("true") && !respu.equals("false"));
@@ -255,6 +255,7 @@ public class Util {
         if (respu.equals("1") || respu.equals("si") || respu.equals("s") || respu.equals("true")) {
             return true;
         } else {
+            System.out.println("Valor no valido. Intentalo de nuevo:");
             return false;
         }
     }
@@ -268,7 +269,7 @@ public class Util {
             try {
                 num = Float.parseFloat(introducirCadena());
             } catch (NumberFormatException e) {
-                System.out.println("Valor no num rico. Introduce de nuevo:");
+                System.out.println("Valor no numerico. Introduce de nuevo:");
                 error = true;
             }
         } while (error);
@@ -284,12 +285,12 @@ public class Util {
                 num = Float.parseFloat(introducirCadena());
 
             } catch (NumberFormatException e) {
-                System.out.println("Valor no num rico. Introduce de nuevo:");
+                System.out.println("Valor no numerico. Introduce de nuevo:");
                 error = true;
                 num = min;
             }
             if (num < min || num > max) {
-                System.out.println("N  fuera de rango, introduce n  entre " + min + " y " + max + ": ");
+                System.out.println("N  fuera de rango, introduce n entre " + min + " y " + max + ": ");
                 error = true;
             }
         } while (error);
@@ -305,7 +306,7 @@ public class Util {
             try {
                 num = Float.parseFloat(introducirCadena());
             } catch (NumberFormatException e) {
-                System.out.println("Valor no num rico. Introduce de nuevo:");
+                System.out.println("Valor no numerico. Introduce de nuevo:");
                 error = true;
             }
         } while (error);
@@ -322,12 +323,12 @@ public class Util {
                 num = Float.parseFloat(introducirCadena());
 
             } catch (NumberFormatException e) {
-                System.out.println("Valor no num rico. Introduce de nuevo:");
+                System.out.println("Valor no numerico. Introduce de nuevo:");
                 error = true;
                 num = min;
             }
             if (num < min || num > max) {
-                System.out.println("N  fuera de rango, introduce n  entre " + min + " y " + max + ": ");
+                System.out.println("N  fuera de rango, introduce n entre " + min + " y " + max + ": ");
                 error = true;
             }
         } while (error);
@@ -387,16 +388,38 @@ public class Util {
             tipoo = Genero.valueOf(gene);
             return tipoo;
         } catch (IllegalArgumentException e) {
-            System.out.println("Género no válido, inténtelo de nuevo.");
+            System.out.println("Género no valido, intentelo de nuevo.");
         }
     } while (true);
     }
     
-    
+    //VALIDACION EMAIL
+    public static String leerEmail(String mensaje) {
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-zA-Z]{2,}$";
+        while (true) {
+            String input = leerString(mensaje).trim();
+            if (input.matches(regex)) {
+                return input;
+            }
+            System.out.println("Error: Formato de email invalido (debe contener '@' y un dominio valido, ej. usuario@mail.com).");
+        }
+    }
+ 
+    // Validar Teléfono
+    public static String leerTelefono(String mensaje) {
+    String regex = "^\\d{9}$"; 
+    while (true) {
+        String input = leerString(mensaje).trim();
+        if (input.matches(regex)) {
+            return input;
+        }
+        System.out.println("Error: El telefono debe contener exactamente 9 digitos.");
+    }
+    }
     
     // ----------------------------------------------------
 
-    //Devuelve el n�mero de objetos de un fichero
+    //Devuelve el numero de objetos de un fichero
     public static int calculoFichero(File fich) {
         int cont = 0;
         if (fich.exists()) {
@@ -414,7 +437,7 @@ public class Util {
                 }
 
             } catch (EOFException e1) {
-                //System.out.println("Has acabado de leer, tienes "+cont+" objetos");
+              
 
             } catch (Exception e2) {
                 e2.printStackTrace();

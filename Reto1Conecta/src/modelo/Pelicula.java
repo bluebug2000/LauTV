@@ -76,4 +76,10 @@ public class Pelicula {
     public void setRuta(String ruta) {
         this.ruta = ruta;
     }
+
+    @Override
+    public String toString() {
+        return "Pelicula{" + "id=" + id + " titulo=" + titulo + ", director=" + director + ", genero=" + genero + ", Adultos=" + Adultos + ", ruta=" + ruta + '}';
+    }
+    
 }

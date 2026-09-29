@@ -15,25 +15,25 @@ import java.sql.SQLException;
  */
 public interface Dao {
 
-    // 1. Registrar una película en la tabla Pelicula
+    // 1. Registrar una pelicula en la tabla Pelicula
     public boolean registrarPelicula(Pelicula pelicula) throws SQLException;
 
     // 2. Registrar un usuario en la tabla Usuario
     public boolean registrarUsuario(Usuario usuario) throws SQLException;
 
-    // 3. Crear watchlist vinculada a un usuario (tabla WatchList)
+    // 3. Crear watchlist vinculada a un usuario
     public void crearWatchlist(Watchlist watchlist, Integer idUsuario) throws Exception;
 
-    // 4. Añadir película a watchlist (inserción en tabla intermedia y actualización de num_pel)
+    // 4. Añadir pelicula a watchlist
     public void anadirPeliculaAWatchlist(Integer idPelicula, Integer idWatchlist) throws Exception;
 
-    // 5. Consultar películas para adultos (SELECT donde adultos = true)
+    // 5. Consultar peliculas para adultos (donde adultos = true)
     public List<Pelicula> consultarPeliculasAdultos() throws Exception;
 
     // 6. Consultar watchlist de un usuario mediante su ID
     public List<Watchlist> consultarWatchlistUsuario(Integer idUsuario) throws Exception;
 
-    // 7. Ver historial de watchlist de una película (en qué listas está guardada)
+    // 7. Ver historial de watchlist de una pelicula
     public List<Watchlist> verHistorialWatchlistPelicula(Integer idPelicula) throws Exception;
 
 }

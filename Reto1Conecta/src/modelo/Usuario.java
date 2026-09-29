@@ -56,4 +56,10 @@ public class Usuario {
     public void setTelefono(String Telefono) {
         this.Telefono = Telefono;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", email=" + email + ", Telefono=" + Telefono + '}';
+    }
+    
 }
