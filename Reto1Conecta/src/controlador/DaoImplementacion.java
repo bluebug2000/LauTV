@@ -47,7 +47,9 @@ public class DaoImplementacion implements Dao {
     private static final String CONSULTAR_PELIS_ADULTOS = "SELECT * FROM Pelicula WHERE adultos = ?";
     
     private static final String CONSULTAR_PELICULA = "SELECT id FROM Pelicula WHERE id = ?";
+    private static final String LISTAR_PELICULAS = "SELECT titulo FROM Pelicula WHERE id = ?";
     private static final String CONSULTAR_USUARIO = "SELECT id FROM Usuario WHERE id = ?";
+    
     
 
     // Atributo de Ficheros
@@ -223,6 +225,8 @@ public class DaoImplementacion implements Dao {
     //---------------------------------------------------------------------------------------------
     // Se listan las peliculas de la WatchList del usuario a traves de su ID
     //---------------------------------------------------------------------------------------------
+    
+    
     @Override
     public List<Watchlist> consultarWatchlistUsuario(Integer idUsuario) throws Exception {
         if (!existeUsuarioBD(idUsuario)) {
@@ -240,6 +244,7 @@ public class DaoImplementacion implements Dao {
 
         return listasUsuario;
     }
+    
     
     @Override
     public List<Watchlist> verHistorialWatchlistPelicula(Integer idPelicula) throws Exception {
@@ -323,5 +328,32 @@ public class DaoImplementacion implements Dao {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichero))) {
             oos.writeObject(listas);
         }
+    }
+    
+    //---------------------------------------------------------------------------------------------
+    // Se obtiene el titulo de una pelicula a traves de su ID
+    //---------------------------------------------------------------------------------------------
+    @Override
+    public String obtenerTituloPelicula(Integer idPelicula) throws SQLException {
+    String titulo = null;
+
+    try {
+        openConnection();
+
+        stmt = con.prepareStatement(LISTAR_PELICULAS);
+        stmt.setInt(1, idPelicula);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                titulo = rs.getString("titulo");
+            }
+        }
+
+    } finally {
+        closeConnection();
+    }
+
+    return titulo;
     }
 }

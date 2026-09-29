@@ -142,13 +142,13 @@ public class Controlador {
     // Metodo para anadir una pelicula a una WatchList
     //---------------------------------------------------------------------------------------------
     private static void anadirPeliculaAWatchlist() {
-        System.out.println("\n--- ANADIR PELÍCULA ---");
+        System.out.println("\n--- ANADIR PELiCULA ---");
         int idPelicula = Util.leerInt("ID de la pelicula:");
         int idWatchlist = Util.leerInt("ID de la Watchlist destino:");
 
         try {
             dao.anadirPeliculaAWatchlist(idPelicula, idWatchlist);
-            System.out.println("Pelicula añadida a la lista.");
+            System.out.println("Pelicula anadida a la lista.");
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -191,12 +191,31 @@ public class Controlador {
             System.out.println("Watchlists del usuario " + idUsuario + ":");
 
             for (Watchlist w : listas) {
-                System.out.println(w);
+                System.out.println("\nID Watchlist: " + w.getId());
+                System.out.println("Nombre Watchlist: " + w.getNombre());
+                System.out.println("Fecha de creacion: " + w.getFechaCreacion());
+                
+                if (w.getPeliculasIds() == null || w.getPeliculasIds().isEmpty()) {
+                    System.out.println("Peliculas: ninguna");
+                    
+                } else {
+                    System.out.println("Peliculas:");
+                    for (Integer idPelicula : w.getPeliculasIds()) {
+                        String titulo = dao.obtenerTituloPelicula(idPelicula);
+                        if (titulo != null) {
+                            System.out.println("  - " + titulo);
+                        } else {
+                            System.out.println("  - Pelicula no encontrada");
+                        }
+                    }
+                }
             }
         }
 
     } catch (Exception e) {
+
         System.out.println("Error: " + e.getMessage());
+
     }
     }
 

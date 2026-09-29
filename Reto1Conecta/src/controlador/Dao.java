@@ -35,5 +35,8 @@ public interface Dao {
 
     // 7. Ver historial de watchlist de una pelicula
     public List<Watchlist> verHistorialWatchlistPelicula(Integer idPelicula) throws Exception;
+    
+    // 8. Obtener el titulo de una pelicula mediante su ID
+    public String obtenerTituloPelicula(Integer idPelicula) throws SQLException;
 
 }
