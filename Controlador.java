@@ -162,6 +162,24 @@ public class Controlador {
     }
 
     private static void verHistorialWatchlistPelicula() {
-        
+         System.out.println("\n--- CONSULTAR WATCHLIST DE UN USUARIO ---");
+        int idUsuario = Util.leerInt("ID del usuario: ");
+
+        try {
+            List<Watchlist> listas = dao.consultarWatchlistUsuario(idUsuario);
+
+            if (listas.isEmpty()) {
+                System.out.println("El usuario no tiene ninguna watchlist.");
+            } else {
+                System.out.println("Watchlists del usuario " + idUsuario + ":");
+
+                for (Watchlist w : listas) {
+                    System.out.println(w);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
